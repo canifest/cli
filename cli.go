@@ -11,7 +11,7 @@ func main() {
 
 	shell.Register("hello", func(args ...string) (string, error) {
 		shell.ShowPrompt(false)
-		defer shell.ShowPrompt(true)  // interesting for reverting state
+		defer shell.ShowPrompt(true)  // interesting use of defer for reverting state
 		
 		shell.Print("What is your name? ")
 		name := shell.ReadLine()
