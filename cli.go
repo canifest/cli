@@ -3,8 +3,9 @@ package main
 import (
 	"net/http"
 	"os"
-
+	"io/ioutil"
 	"github.com/abiosoft/ishell"
+	"fmt"
 )
 
 //TODO someone explain the different between localhost:993 and :993 to me, please
@@ -72,13 +73,17 @@ func showServerSuccessfulConnection() {
 }
 
 func help(args ...string) (string, error) {
-	//TODO either make help text read from a file or from the rest server
-	//TODO go to the server and get the list of commands to show the user
 	var helpText string
-	helpText += "Welcome to Canifest. To make this work properly, make sure you "
-	helpText += "start the core rest server before you run the CLI.\n"
-	helpText += "./bin/core from your GOPATH"
-	return helpText, nil
+	response,  err := http.Get(defaultURL + "/help")
+    if err != nil {
+        errorCheck(err)
+    } else {
+        defer response.Body.Close()
+        contents, err := ioutil.ReadAll(response.Body)
+        errorCheck(err)
+				helpText += string(contents)
+			}
+			return helpText, nil
 }
 
 func quit(args ...string) (string, error) {
@@ -93,4 +98,11 @@ func startShell() {
 
 func exitApplication(status int) {
 	os.Exit(status)
+}
+
+func errorCheck(err error) {
+	if err != nil {
+			fmt.Printf("%s", err)
+			os.Exit(1)
+	}
 }
