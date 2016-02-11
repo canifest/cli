@@ -8,6 +8,10 @@ import (
 	"fmt"
 )
 
+type ListResponse struct {
+    Commands []string `json:"name"`
+}
+
 //TODO someone explain the different between localhost:993 and :993 to me, please
 var defaultURL = "http://localhost:9993"
 var shell *ishell.Shell
@@ -53,6 +57,8 @@ func registerHandlers() {
 	shell.Register("help", help)
 	shell.Register("quit", quit)
 	shell.Register("exit", quit)
+	shell.Register("list", list)
+	shell.Register("dockerfile", dockerfile)
 }
 
 func showCheckServerStatus() {
@@ -84,6 +90,36 @@ func help(args ...string) (string, error) {
 				helpText += string(contents)
 			}
 			return helpText, nil
+}
+
+//TODO figure out how to unmarshal this instead of returning raw json
+func list(args ...string) (string, error) {
+	var listText string
+	response,  err := http.Get(defaultURL + "/list")
+    if err != nil {
+        errorCheck(err)
+    } else {
+        defer response.Body.Close()
+        contents, err := ioutil.ReadAll(response.Body)
+        errorCheck(err)
+				listText += string(contents)
+			}
+			return listText, nil
+}
+
+//TODO figure out how to unmarshal this instead of returning raw json
+func dockerfile(args ...string) (string, error) {
+	var dockerfileText string
+	response,  err := http.Get(defaultURL + "/dockerfile")
+    if err != nil {
+        errorCheck(err)
+    } else {
+        defer response.Body.Close()
+        contents, err := ioutil.ReadAll(response.Body)
+        errorCheck(err)
+				dockerfileText += string(contents)
+			}
+			return dockerfileText, nil
 }
 
 func quit(args ...string) (string, error) {
