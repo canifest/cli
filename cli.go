@@ -3,7 +3,8 @@ package main
 import (
 	"net/http"
 	"os"
-
+	"bufio"
+	"fmt"
 	"github.com/abiosoft/ishell"
 )
 
@@ -15,8 +16,6 @@ func main() {
 	welcome()
 
 	createNewShell()
-
-	writeIntroductoryStuff()
 
 	verifyServerStatusAndInformUser()
 
@@ -40,11 +39,6 @@ func welcome() {
 
 func createNewShell() {
 	shell = ishell.New()
-}
-
-func writeIntroductoryStuff() {
-	//TODO make this more interesting
-	shell.Println("--[ canifest ]-----")
 }
 
 func verifyServerStatusAndInformUser() {
