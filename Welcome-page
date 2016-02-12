@@ -1,0 +1,22 @@
+    __________        ____                _____             _________________________________________________________________________
+   /	     /       /    \              /      \          /   /             /             /             /             /            /
+  /   ______/       /      \            /        \        /   /____    _____/    _________/    _________/   __________/____    ____/
+ /   /             /        \          /    /\    \      /   /    /   /    /    /________/    /________/   /_________     /   / 
+/   /             /    /\    \        /    /  \    \    /   /    /   /    /             /             /             /    /   /
+\   \            /    /  \    \      /    /    \    \  /   /    /   /    /    _________/    _________/________     /    /   /  
+ \   \______    /    /____\    \    /    /      \    \/   /____/   /____/    /        /    /_________________/    /    /   /
+  \         \  /    ________    \  /    /        \       /             /    /        /             /             /    /   /
+   \_________\/____/        \____\/____/          \_____/_____________/____/        /_____________/_____________/    /___/
+
+
+	Canifest, the Container Manifest Wizard, is a tool designed to assist you in creating Dockerfiles. Canifest will step you 
+	through the process of creating a Dockerfile by asking you a series of question, the results of which will be used to 
+	generate a custom tailored Dockerfile. Neat, right? Yea, we thought so.
+
+	Before using Canifest it would be wise to have some information handy ahead of time. Information such as:
+        -What Base Image you want to use
+	    -What you want the image to do
+	    -Any files or scripts that need to be loaded into the image
+	    -What environment variables that would need to be set, if any
+
+	Remember to use your images for evil, and not good.

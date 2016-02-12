@@ -12,6 +12,8 @@ var defaultURL = "http://localhost:9993"
 var shell *ishell.Shell
 
 func main() {
+	welcome()
+
 	createNewShell()
 
 	writeIntroductoryStuff()
@@ -22,6 +24,18 @@ func main() {
 	registerHandlers()
 
 	startShell()
+}
+
+func welcome() {
+	welcomePage, err := os.Open("Welcome-page")
+	if err != nil {
+		panic(err)
+	}
+	defer welcomePage.Close()
+	readLines := bufio.NewScanner(welcomePage)
+	for readLines.Scan() {
+		fmt.Println(readLines.Text())
+	}
 }
 
 func createNewShell() {
