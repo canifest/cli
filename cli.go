@@ -3,7 +3,8 @@ package main
 import (
 	"net/http"
 	"os"
-
+	"bufio"
+	"fmt"
 	"github.com/abiosoft/ishell"
 )
 
@@ -12,9 +13,9 @@ var defaultURL = "http://localhost:9993"
 var shell *ishell.Shell
 
 func main() {
-	createNewShell()
+	welcome()
 
-	writeIntroductoryStuff()
+	createNewShell()
 
 	verifyServerStatusAndInformUser()
 
@@ -24,13 +25,20 @@ func main() {
 	startShell()
 }
 
-func createNewShell() {
-	shell = ishell.New()
+func welcome() {
+	welcomePage, err := os.Open("Welcome-page")
+	if err != nil {
+		panic(err)
+	}
+	defer welcomePage.Close()
+	readLines := bufio.NewScanner(welcomePage)
+	for readLines.Scan() {
+		fmt.Println(readLines.Text())
+	}
 }
 
-func writeIntroductoryStuff() {
-	//TODO make this more interesting
-	shell.Println("--[ canifest ]-----")
+func createNewShell() {
+	shell = ishell.New()
 }
 
 func verifyServerStatusAndInformUser() {
